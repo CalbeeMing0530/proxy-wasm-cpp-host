@@ -337,6 +337,11 @@ public:
                          std::string_view /* serialized_value */) override {
     return unimplemented();
   }
+  WasmResult setDynamicdata(std::string_view /* key */,
+                         std::string_view /* serialized_value */) override {
+    return unimplemented();
+  }
+
 
   // Continue
   WasmResult continueStream(WasmStreamType /* stream_type */) override { return unimplemented(); }
