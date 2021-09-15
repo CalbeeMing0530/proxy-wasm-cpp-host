@@ -117,6 +117,18 @@ Word set_property(Word key_ptr, Word key_size, Word value_ptr, Word value_size) 
   return context->setProperty(key.value(), value.value());
 }
 
+Word set_dynamicdata(Word key_ptr, Word key_size, Word value_ptr, Word value_size) {
+  //auto context = WASM_CONTEXT(raw_context);
+  auto context = contextOrEffectiveContext();
+  auto key = context->wasmVm()->getMemory(key_ptr, key_size);
+  auto value = context->wasmVm()->getMemory(value_ptr, value_size);
+  if (!key || !value) {
+    return WasmResult::InvalidMemoryAccess;
+  }
+  return context->setDynamicdata(key.value(), value.value());
+}
+
+
 // Generic selector
 Word get_property(Word path_ptr, Word path_size, Word value_ptr_ptr, Word value_size_ptr) {
   auto context = contextOrEffectiveContext();
